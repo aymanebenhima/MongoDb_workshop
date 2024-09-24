@@ -109,3 +109,137 @@ db.maCollection.deleteMany({ age: { $lt: 30 } })  // Supprimer ceux ayant moins 
   ```bash
   db.dropDatabase()
   ```
+
+## Des tâches supplémentaires pour MongoDB avec des exemples concrets.
+
+### Tâches supplémentaires
+
+#### 1. **Ajouter un index sur une collection**
+Un index peut accélérer les recherches dans une collection. Demandez aux participants de créer un index sur un champ pour optimiser les requêtes.
+
+**Tâche :** Créer un index sur le champ `nom` de la collection.
+```bash
+db.maCollection.createIndex({ nom: 1 })
+```
+Ensuite, faites une recherche pour observer l'amélioration des performances:
+```bash
+db.maCollection.find({ nom: "Aymane" }).explain("executionStats")
+```
+
+#### 2. **Utiliser des filtres complexes avec des opérateurs**
+MongoDB supporte une large variété d'opérateurs de comparaison (`$gt`, `$lt`, `$in`, etc.) pour filtrer les résultats.
+
+**Tâche :** Récupérer tous les utilisateurs dont l'âge est compris entre 20 et 30 ans.
+```bash
+db.maCollection.find({ age: { $gte: 20, $lte: 30 } })
+```
+**Tâche Bonus :** Récupérer tous les utilisateurs qui ont un rôle de "Développeur" ou de "Designer".
+```bash
+db.maCollection.find({ role: { $in: ["Développeur", "Designer"] } })
+```
+
+#### 3. **Mettre à jour des documents avec des opérateurs d’incrément**
+L'opérateur `$inc` permet d'incrémenter une valeur numérique d'un champ.
+
+**Tâche :** Augmenter l'âge de tous les développeurs de 1 an.
+```bash
+db.maCollection.updateMany({ role: "Développeur" }, { $inc: { age: 1 } })
+```
+
+#### 4. **Ajouter des sous-documents dans MongoDB**
+MongoDB permet de stocker des documents imbriqués.
+
+**Tâche :** Ajouter un champ `adresse` comme sous-document pour un utilisateur.
+```bash
+db.maCollection.updateOne(
+  { nom: "Aymane" },
+  { $set: { adresse: { ville: "Oujda", codePostal: "60000" } } }
+)
+```
+
+**Tâche Bonus :** Récupérer tous les utilisateurs qui vivent dans une ville donnée.
+```bash
+db.maCollection.find({ "adresse.ville": "Oujda" })
+```
+
+#### 5. **Utiliser l’opérateur `$push` pour ajouter des éléments à un tableau**
+MongoDB supporte les tableaux, et l’opérateur `$push` permet d’ajouter des éléments dans un champ de type tableau.
+
+**Tâche :** Ajouter une liste de projets à un utilisateur.
+```bash
+db.maCollection.updateOne(
+  { nom: "Aymane" },
+  { $push: { projets: { nom: "Projet MongoDB", status: "En cours" } } }
+)
+```
+
+#### 6. **Effectuer des recherches partielles avec des expressions régulières (regex)**
+Les regex sont utiles pour effectuer des recherches textuelles plus complexes.
+
+**Tâche :** Trouver tous les utilisateurs dont le nom commence par un "A".
+```bash
+db.maCollection.find({ nom: { $regex: "^A" } })
+```
+
+#### 7. **Utiliser l’agrégation pour analyser les données**
+L’agrégation permet de réaliser des traitements avancés sur les données (similaire aux GROUP BY en SQL).
+
+**Tâche :** Compter le nombre d’utilisateurs pour chaque rôle dans la collection.
+```bash
+db.maCollection.aggregate([
+  { $group: { _id: "$role", total: { $sum: 1 } } }
+])
+```
+
+#### 8. **Exporter et importer des données**
+MongoDB permet d’exporter et d’importer des collections dans un fichier.
+
+**Tâche :** Exporter une collection dans un fichier JSON.
+```bash
+mongoexport --db maBaseDeDonnees --collection maCollection --out collection_export.json
+```
+
+**Tâche Bonus :** Importer une collection à partir d'un fichier JSON.
+```bash
+mongoimport --db maBaseDeDonnees --collection nouvelleCollection --file collection_export.json
+```
+
+#### 9. **Créer une base de données avec des rôles utilisateurs et des permissions**
+MongoDB permet de créer des utilisateurs avec des permissions spécifiques (lecture seule, lecture/écriture).
+
+**Tâche :** Créer un utilisateur avec des droits limités à la lecture de la base de données.
+```bash
+db.createUser({
+  user: "lecteur",
+  pwd: "motdepasse",
+  roles: [{ role: "read", db: "maBaseDeDonnees" }]
+})
+```
+
+#### 10. **Backup et restauration d’une base de données**
+MongoDB permet de créer des sauvegardes.
+
+**Tâche :** Créer un backup de la base de données.
+```bash
+mongodump --db maBaseDeDonnees --out /path/to/backup
+```
+
+**Tâche Bonus :** Restaurer une base de données depuis un backup.
+```bash
+mongorestore /path/to/backup
+```
+
+### Résumé des tâches supplémentaires
+
+1. Créer des index pour optimiser les recherches.
+2. Utiliser des filtres complexes avec des opérateurs.
+3. Mettre à jour des documents avec des opérateurs d'incrément.
+4. Ajouter des sous-documents dans MongoDB.
+5. Utiliser l’opérateur `$push` pour ajouter des éléments à un tableau.
+6. Faire des recherches avec des expressions régulières.
+7. Utiliser des pipelines d'agrégation pour des analyses avancées.
+8. Exporter et importer des collections.
+9. Gérer des utilisateurs avec des rôles et des permissions.
+10. Faire un backup et restaurer une base de données.
+
+
