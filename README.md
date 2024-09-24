@@ -1,6 +1,6 @@
 # MongoDb_workshop
 
-Voici un tutoriel pratique sur MongoDB avec des commandes pour créer une base de données et effectuer des opérations CRUD (Create, Read, Update, Delete).
+Atelier pratique sur MongoDB avec des commandes pour créer une base de données et effectuer des opérations CRUD (Create, Read, Update, Delete).
 
 ### 1. **Installation de MongoDB** (si ce n’est pas déjà fait)
 - Sur Windows, utilisez l'[installateur MongoDB](https://www.mongodb.com/try/download/community) pour installer MongoDB.
