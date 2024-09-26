@@ -1,6 +1,6 @@
 ### Atelier MongoDB : Manipulation des opérations CRUD
 
-L'objectif de cet atelier est de manipuler les opérations CRUD (Create, Read, Update, Delete) avec MongoDB en utilisant des indices sans fournir directement les solutions. Les participants devront suivre les étapes données et réaliser les tâches en s'aidant des pistes fournies.
+L'objectif de cet atelier est de manipuler les opérations CRUD (Create, Read, Update, Delete) avec MongoDB en utilisant des indices sans fournir directement les solutions.
 
 ---
 
